@@ -1,4 +1,4 @@
-name: Deploy
+name: Make-Release
 on:
   workflow_dispatch:
     inputs:
@@ -23,11 +23,12 @@ jobs:
     - name: Print 2
       run: echo ${{ env.working_dir }}
 
-
-    - name: Set environment variable
-      run: echo "TAG_VALUE=${{ inputs.my_textbox }}" >> $GITHUB_ENV
-    - name: Use the variable
-      run: echo "My string is $TAG_VALUE"
+    - name: Extract version value
+      shell: pwsh
+      run: |
+        $tagValue = ${{ inputs.my_textbox }}
+        Write-Host "TAG_VALUE=$tagValue"
+        echo "TAG_VALUE=$tagValue" >> $env:GITHUB_ENV    
 
     - name: Checkout
       uses: actions/checkout@v3
