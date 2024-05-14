@@ -10,6 +10,7 @@ on:
 env:
    sln_filename: ${{ github.workspace }}\main\examples\IdeaStatiCa-SDK-Examples.sln
    working_dir: ${{ github.workspace }}\main\examples
+   TAG_VALUE: ${{ inputs.my_textbox }}
 
 jobs:
   BuildAndTest:
@@ -23,15 +24,8 @@ jobs:
     - name: Print 2
       run: echo ${{ env.working_dir }}
 
-    - name: Print the input tag to STDOUT
-      run: echo  The tags are ${{ inputs.my_textbox }} 
-
-    - name: Extract version value
-      shell: pwsh
-      run: |
-        $tagValue = ${{ inputs.my_textbox }}
-        Write-Host "TAG_VALUE=$tagValue"
-        echo "TAG_VALUE=$tagValue" >> $env:GITHUB_ENV    
+    - name: Echo TAG_VALUE
+      run: echo "TAG_VALUE=${TAG_VALUE}" >> $GITHUB_ENV 
 
     - name: Checkout
       uses: actions/checkout@v3
