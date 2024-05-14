@@ -23,6 +23,9 @@ jobs:
     - name: Print 2
       run: echo ${{ env.working_dir }}
 
+    - name: Print the input tag to STDOUT
+      run: echo  The tags are ${{ inputs.my_textbox }} 
+
     - name: Extract version value
       shell: pwsh
       run: |
